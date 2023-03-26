@@ -5,15 +5,16 @@ class TitleBox extends StatelessWidget {
   final String text;
   final String imageUrl;
   final double imageHeight;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+  final ValueChanged<String>? onChanged;
   const TitleBox(
       {required this.type,
       required this.text,
       required this.imageUrl,
       required this.imageHeight,
-      required this.onPressed,
-      Key? key})
-      : super(key: key);
+      this.onPressed,
+      this.onChanged,
+      Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,7 @@ class TitleBox extends StatelessWidget {
       children: [
         Stack(
           children: [
-            Container(
-              child: Image.asset(imageUrl),
-            ),
+            Image.asset(imageUrl),
             Container(
               height: imageHeight,
               child: Row(
@@ -70,9 +69,7 @@ class TitleBox extends StatelessWidget {
                                               color: Colors.black, width: 1),
                                         ),
                                       ),
-                                      onTap: () {
-                                        print('!!');
-                                      },
+                                      onChanged: onChanged,
                                     ),
                                   ),
                                 ]

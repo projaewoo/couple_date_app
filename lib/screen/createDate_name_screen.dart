@@ -1,6 +1,8 @@
 import 'package:couple_date_app/component/title_box.dart';
+import 'package:couple_date_app/main.dart';
 import 'package:couple_date_app/screen/createDate_date_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CreateDate_Name extends StatefulWidget {
   final String type;
@@ -14,7 +16,6 @@ class _CreateDate_NameState extends State<CreateDate_Name> {
   String title = '';
   @override
   Widget build(BuildContext context) {
-    print(widget.type);
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -41,7 +42,9 @@ class _CreateDate_NameState extends State<CreateDate_Name> {
                   text: '이벤트 제목은?',
                   imageUrl: 'asset/img/paper/paper_L.png',
                   imageHeight: 85,
-                  onPressed: () {},
+                  onChanged: (String dateName) {
+                    Provider.of<DateModel>(context, listen: false).changeDateName(dateName);
+                  },
                 ),
               ),
               InkWell(

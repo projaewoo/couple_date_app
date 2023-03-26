@@ -1,6 +1,10 @@
 import 'package:couple_date_app/component/title_box.dart';
+import 'package:couple_date_app/main.dart';
+import 'package:couple_date_app/model/date_type.dart';
+import 'package:couple_date_app/screen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CreateDate_Date extends StatefulWidget {
   final Map<String, String> data;
@@ -15,7 +19,6 @@ class _CreateDate_DateState extends State<CreateDate_Date> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   @override
   Widget build(BuildContext context) {
-    // print(widget.data);
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -47,7 +50,7 @@ class _CreateDate_DateState extends State<CreateDate_Date> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: goHomePage,
                 child: Image.asset('asset/img/button/completeButton_white.png',
                     width: 150),
               ),
@@ -79,5 +82,17 @@ class _CreateDate_DateState extends State<CreateDate_Date> {
             ),
           );
         });
+  }
+
+  void goHomePage() {
+    Provider.of<DateModel>(context, listen: false).changeDate(selectedDate);
+
+    Provider.of<DateModel>(context, listen: false)
+        .addDate();
+
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return HomeScreen();
+    }));
   }
 }
