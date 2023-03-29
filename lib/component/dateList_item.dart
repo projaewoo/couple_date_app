@@ -1,3 +1,4 @@
+import 'package:couple_date_app/component/font.dart';
 import 'package:couple_date_app/screen/date_detail_screen.dart';
 import 'package:couple_date_app/screen/date_edit_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +27,20 @@ class _DateListItemState extends State<DateListItem> {
                     'asset/img/paper/m_paper0${widget.index % 4 + 1}.png'),
                 onTap: goDetailPage,
               ),
-              Positioned(top: 10, left: 30, child: Text(widget.text)),
+              Positioned(
+                top: 10,
+                left: 30,
+                child: Text(widget.text, style: mysen_small_black),
+              ),
+              //
               Positioned(
                 top: 10,
                 right: 20,
                 child: GestureDetector(
-                  child: Icon(
-                    Icons.edit,
-                  ),
-                  onTap: goDateEditPage
-                ),
+                    child: Icon(
+                      Icons.edit,
+                    ),
+                    onTap: goDateEditPage),
               ),
             ],
           ),
@@ -54,7 +59,7 @@ class _DateListItemState extends State<DateListItem> {
   void goDateEditPage() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
-          return Date_Edit();
+      return Date_Edit();
     }));
   }
 }

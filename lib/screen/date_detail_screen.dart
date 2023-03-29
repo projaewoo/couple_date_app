@@ -1,3 +1,4 @@
+import 'package:couple_date_app/component/font.dart';
 import 'package:couple_date_app/main.dart';
 import 'package:couple_date_app/screen/date_setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,28 @@ class Date_Detail extends StatelessWidget {
                           Positioned(
                             top: 10,
                             left: 10,
-                            child: Column(
-                              children: [
-                                _Body_Header(),
-                              ],
+                            child: Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _Body_Header(),
+                                  Column(
+                                    children: List.generate(
+                                      10,
+                                      (index) {
+                                        final newDate = dateModel.date.add(Duration(days: (index + 1) * 100));
+                                        return Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${(index + 1) * 100}일'),
+                                          Text('${DateFormat('yyyy-MM-dd').format(newDate)}'),
+                                        ]);
+                                      }
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -72,8 +91,7 @@ class _HeaderState extends State<_Header> {
         ),
         Text(
           '그 날,',
-          style:
-              TextStyle(color: Colors.black, fontFamily: 'mago', fontSize: 30),
+          style: mago_small_black,
         ),
         TextButton(
           child: Text('수정'),
@@ -102,9 +120,9 @@ class _Body_Header extends StatelessWidget {
         children: [
           Image.asset('asset/img/paper/we_met_green.png'),
           Positioned(
-            top: 7,
+            top: 4.5,
             left: 15,
-            child: Text('우리 만난 날'),
+            child: Text('우리 만난 날', style: mago_small_black),
           )
         ],
       ),

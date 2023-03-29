@@ -1,4 +1,5 @@
 import 'package:couple_date_app/component/dateList_item.dart';
+import 'package:couple_date_app/component/font.dart';
 import 'package:couple_date_app/component/title_box.dart';
 import 'package:couple_date_app/main.dart';
 import 'package:couple_date_app/screen/createDate_type_screen.dart';
@@ -34,10 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Center(
                         child: Text(
                           '그 날,',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'mago',
-                              fontSize: 30),
+                          style: mago_small_black,
                         ),
                       ),
                     ],

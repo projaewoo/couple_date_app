@@ -1,3 +1,4 @@
+import 'package:couple_date_app/component/font.dart';
 import 'package:flutter/material.dart';
 
 class TitleBox extends StatelessWidget {
@@ -32,11 +33,7 @@ class TitleBox extends StatelessWidget {
                       ? [
                           Text(
                             text,
-                            style: TextStyle(
-                                fontFamily: 'mysen',
-                                fontSize: 30,
-                                color: Colors.black),
-                          ),
+                            style: mysen_small_black),
                         ]
                       : type == 'button'
                           ? [
@@ -44,8 +41,7 @@ class TitleBox extends StatelessWidget {
                                 onPressed: onPressed,
                                 child: Text(
                                   text,
-                                  style: TextStyle(
-                                      fontFamily: 'mysen', fontSize: 30),
+                                  style: mysen_small_black,
                                 ),
                                 style: TextButton.styleFrom(
                                   primary: Colors.black,
@@ -60,10 +56,7 @@ class TitleBox extends StatelessWidget {
                                     child: TextField(
                                       decoration: InputDecoration(
                                         hintText: text,
-                                        hintStyle: TextStyle(
-                                          fontFamily: 'mysen',
-                                          fontSize: 30,
-                                        ),
+                                        hintStyle: mysen_small_black,
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.black, width: 1),
