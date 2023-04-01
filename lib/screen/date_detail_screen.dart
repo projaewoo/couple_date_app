@@ -31,29 +31,43 @@ class Date_Detail extends StatelessWidget {
                       child: Stack(
                         children: [
                           Image.asset('asset/img/paper/bigpaper.png'),
-                          Positioned(
+                          Positioned.fill(
                             top: 10,
                             left: 10,
-                            child: Expanded(
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.8,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   _Body_Header(),
-                                  Column(
-                                    children: List.generate(
-                                      10,
-                                      (index) {
-                                        final newDate = dateModel.date.add(Duration(days: (index + 1) * 100));
-                                        return Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('${(index + 1) * 100}일'),
-                                          Text('${DateFormat('yyyy-MM-dd').format(newDate)}'),
-                                        ]);
-                                      }
-                                    ),
-                                  )
+                                  Expanded(
+                                      child: ListView.builder(
+                                          itemCount: 100,
+                                          itemBuilder: (context, index) {
+                                            final newDate = dateModel.date.add(
+                                                Duration(
+                                                    days: (index + 1) * 100));
+                                            return Container(
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  bottom: BorderSide(
+                                                    width: 1.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        '${(index + 1) * 100}일'),
+                                                    Text(
+                                                        '${DateFormat('yyyy-MM-dd').format(newDate)}'),
+                                                  ]),
+                                            );
+                                          }))
                                 ],
                               ),
                             ),

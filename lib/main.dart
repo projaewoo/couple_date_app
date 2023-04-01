@@ -68,4 +68,7 @@ class DateModel extends ChangeNotifier {
   }
 
   // TODO. subtract
+  void subtractDate (int index) {
+    _dateList.removeAt(index);
+  }
 }
