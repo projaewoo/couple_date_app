@@ -1,4 +1,5 @@
 import 'package:couple_date_app/component/font.dart';
+import 'package:couple_date_app/component/textField.dart';
 import 'package:flutter/material.dart';
 
 class TitleBox extends StatelessWidget {
@@ -53,17 +54,7 @@ class TitleBox extends StatelessWidget {
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width - 70,
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                        hintText: text,
-                                        hintStyle: mysen_small_black,
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.black, width: 1),
-                                        ),
-                                      ),
-                                      onChanged: onChanged,
-                                    ),
+                                    child: TextFieldComponent(text: text, onChanged: onChanged,),
                                   ),
                                 ]
                               : []),

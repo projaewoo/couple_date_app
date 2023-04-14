@@ -1,17 +1,17 @@
-import 'package:couple_date_app/component/font.dart';
+import 'package:couple_date_app/database/drift_database.dart';
 import 'package:couple_date_app/main.dart';
-import 'package:couple_date_app/screen/date_setting_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:couple_date_app/component/component_header.dart';
 
 class Date_Detail extends StatelessWidget {
-  final int index;
-  const Date_Detail({required this.index, Key? key}) : super(key: key);
+  final int id;
+  const Date_Detail({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dateModel = Provider.of<DateModel>(context);
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -24,7 +24,7 @@ class Date_Detail extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _Header(),
+                  Component_Header(type: Type.goSetting),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(15.0),
@@ -38,36 +38,7 @@ class Date_Detail extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.8,
                               child: Column(
                                 children: [
-                                  _Body_Header(),
-                                  Expanded(
-                                      child: ListView.builder(
-                                          itemCount: 100,
-                                          itemBuilder: (context, index) {
-                                            final newDate = dateModel.date.add(
-                                                Duration(
-                                                    days: (index + 1) * 100));
-                                            return Container(
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                    width: 1.0,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                        '${(index + 1) * 100}일'),
-                                                    Text(
-                                                        '${DateFormat('yyyy-MM-dd').format(newDate)}'),
-                                                  ]),
-                                            );
-                                          }))
+                                  _DateList(id: id),
                                 ],
                               ),
                             ),
@@ -84,62 +55,45 @@ class Date_Detail extends StatelessWidget {
   }
 }
 
-class _Header extends StatefulWidget {
-  const _Header({Key? key}) : super(key: key);
-
-  @override
-  State<_Header> createState() => _HeaderState();
-}
-
-class _HeaderState extends State<_Header> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        Text(
-          '그 날,',
-          style: mago_small_black,
-        ),
-        TextButton(
-          child: Text('수정'),
-          onPressed: goSettingPage,
-        ),
-      ],
-    );
-  }
-
-  void goSettingPage() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) {
-      return Setting();
-    }));
-  }
-}
-
-class _Body_Header extends StatelessWidget {
-  const _Body_Header({Key? key}) : super(key: key);
+class _DateList extends StatelessWidget {
+  final int id;
+  const _DateList({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 170, // Stack 위젯이 부모 위젯 영역을 넘지 않도록
-      child: Stack(
-        children: [
-          Image.asset('asset/img/paper/we_met_green.png'),
-          Positioned(
-            top: 4.5,
-            left: 15,
-            child: Text('우리 만난 날', style: mago_small_black),
-          )
-        ],
-      ),
+    return FutureBuilder(
+      future: GetIt.I<LocalDatabase>().getDate(id),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Expanded(
+            child: ListView.builder(itemBuilder: (context, index) {
+              final eachDate =
+                  snapshot.data!.date.add(Duration(days: (index + 1) * 100));
+              return Container(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${(index + 1) * 100}일'),
+                    Text('${DateFormat('yyyy-MM-dd').format(eachDate)}'),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                    width: 1.0,
+                    color: Colors.black,
+                  )),
+                ),
+              );
+            }),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
     );
   }
 }

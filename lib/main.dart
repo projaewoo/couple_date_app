@@ -1,11 +1,15 @@
+import 'package:couple_date_app/database/drift_database.dart';
 import 'package:couple_date_app/model/date_type.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_date_app/screen/home_screen.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  final database = LocalDatabase();   // database 호출
+  GetIt.I.registerSingleton<LocalDatabase>(database);   // 어디서든 GetIt 클래스를 사용하여 database 가져올 수 있음.
   debugPaintSizeEnabled = true;   // simulator에 위젯 표시
   runApp(MultiProvider(
     providers: [
