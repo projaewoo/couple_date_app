@@ -1,8 +1,11 @@
 import 'package:couple_date_app/component/component_header.dart';
 import 'package:couple_date_app/component/textField.dart';
 import 'package:couple_date_app/component/title_box.dart';
+import 'package:couple_date_app/database/drift_database.dart';
+import 'package:drift/drift.dart' show Value;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class Date_Edit extends StatefulWidget {
   final int id;
@@ -47,25 +50,14 @@ class _Date_EditState extends State<Date_Edit> {
                       children: [
                         Image.asset('asset/img/paper/bigpaper.png'),
                         Positioned.fill(
-                          top: 10,
-                          left: 10,
+                          top: 30,
+                          left: 20,
+                          right: 20,
+                          bottom: 30,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextFieldComponent(
-                                  text: selectedTitle,
-                                  onChanged: (String title) {
-                                    setState(() {
-                                      selectedTitle = title;
-                                    });
-                                  }),
-                              TitleBox(
-                                type: 'button',
-                                text:
-                                    '${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일',
-                                imageUrl: 'asset/img/paper/paper_L.png',
-                                imageHeight: 85,
-                                onPressed: onDatePressed,
-                              ),
+                              _ContentBox(),
                               InkWell(
                                 onTap: onComplete,
                                 child: Image.asset(
@@ -82,6 +74,30 @@ class _Date_EditState extends State<Date_Edit> {
               ],
             ),
           )),
+    );
+  }
+
+  Widget _ContentBox() {
+    return Column(
+      children: [
+        TextFieldComponent(
+          type: TextFieldType.edit,
+            text: selectedTitle,
+            onChanged: (String title) {
+              setState(() {
+                selectedTitle = title;
+              });
+            }),
+        SizedBox(height: 20),
+        TitleBox(
+          type: 'button',
+          text:
+              '${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일',
+          imageUrl: 'asset/img/paper/paper_L.png',
+          imageHeight: 60,
+          onPressed: onDatePressed,
+        ),
+      ],
     );
   }
 
@@ -108,7 +124,13 @@ class _Date_EditState extends State<Date_Edit> {
         });
   }
 
-  void onComplete() {
+  void onComplete() async {
     Navigator.of(context).pop();
+    await GetIt.I<LocalDatabase>().updateDate(
+        widget.id,
+        DateCompanion(
+            type: Value('testType'),
+            title: Value(selectedTitle),
+            date: Value(selectedDate)));
   }
 }

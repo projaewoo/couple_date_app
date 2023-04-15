@@ -1,13 +1,11 @@
 import 'package:couple_date_app/component/dateList_item.dart';
-import 'package:couple_date_app/component/font.dart';
+import 'package:couple_date_app/const/font.dart';
 import 'package:couple_date_app/component/title_box.dart';
 import 'package:couple_date_app/database/drift_database.dart';
-import 'package:couple_date_app/main.dart';
 import 'package:couple_date_app/screen/createDate_type_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -61,40 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      // child: Consumer<DateModel>(builder: (context, date, child) {
-      //   return Scaffold(
-      //     backgroundColor: Colors.transparent,
-      //     body: SafeArea(
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Row(
-      //             mainAxisAlignment: MainAxisAlignment.center,
-      //             children: [
-      //               Center(
-      //                 child: Text(
-      //                   '그 날,',
-      //                   style: mago_small_black,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //           if (date.dateList.length == 0)
-      //             Expanded(
-      //               child: TitleBox(
-      //                 type: 'button',
-      //                 text: 'Day를 추가해주세요',
-      //                 imageUrl: 'asset/img/paper/paper_L_01.png',
-      //                 imageHeight: 120,
-      //                 onPressed: goCreateDatePage,
-      //               ),
-      //             ),
-      //           if (date.dateList.length != 0) renderDateList(),
-      //         ],
-      //       ),
-      //     ),
-      //   );
-      // })
     );
   }
 

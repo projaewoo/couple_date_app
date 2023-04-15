@@ -26,27 +26,8 @@ class _CreateDate_NameState extends State<CreateDate_Name> {
         body: SafeArea(
           child: Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back,
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: TitleBox(
-                  type: 'textField',
-                  text: '이벤트 제목은?',
-                  imageUrl: 'asset/img/paper/paper_L.png',
-                  imageHeight: 85,
-                  onChanged: (String dateName) {
-                    Provider.of<DateModel>(context, listen: false).changeDateName(dateName);
-                  },
-                ),
-              ),
+              _PopButton(),
+              _Title(),
               InkWell(
                 onTap: goDatePage,
                 child: Image.asset('asset/img/button/nextButton_white.png',
@@ -55,6 +36,33 @@ class _CreateDate_NameState extends State<CreateDate_Name> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _PopButton() {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _Title() {
+    return Expanded(
+      child: TitleBox(
+        type: 'textField',
+        text: '이벤트 제목은?',
+        imageUrl: 'asset/img/paper/paper_L.png',
+        imageHeight: 70,
+        onChanged: (String dateName) {
+          title= dateName;
+        },
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:couple_date_app/const/font.dart';
+import 'package:couple_date_app/const/textStyle.dart';
 import 'package:couple_date_app/database/drift_database.dart';
 import 'package:couple_date_app/main.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,8 @@ class Date_Detail extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Component_Header(type: Type.goSetting),
+                  // Component_Header(type: Type.goSetting),
+                  Component_Header(),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(15.0),
@@ -32,12 +35,15 @@ class Date_Detail extends StatelessWidget {
                         children: [
                           Image.asset('asset/img/paper/bigpaper.png'),
                           Positioned.fill(
-                            top: 10,
-                            left: 10,
+                            top: 30,
+                            left: 20,
+                            right: 20,
+                            bottom: 30,
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height * 0.8,
                               child: Column(
                                 children: [
+                                  _TitleBox(),
                                   _DateList(id: id),
                                 ],
                               ),
@@ -52,6 +58,29 @@ class Date_Detail extends StatelessWidget {
             ),
           );
         }));
+  }
+}
+
+class _TitleBox extends StatelessWidget {
+  const _TitleBox({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Stack(
+        children: [
+          Image.asset('asset/img/paper/we_met_green.png', width: 150),
+          Positioned(
+            left: 30,
+            child: Text(
+              '우리 만난 날',
+              style: TextStyleComponent(mysen_small_black),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -74,8 +103,12 @@ class _DateList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${(index + 1) * 100}일'),
-                    Text('${DateFormat('yyyy-MM-dd').format(eachDate)}'),
+                    Text('${(index + 1) * 100}일',
+                      style: TextStyleComponent(mysen_small_black)
+                    ),
+                    Text('${DateFormat('yyyy-MM-dd').format(eachDate)}',
+                      style: TextStyleComponent(mysen_small_black)
+                    ),
                   ],
                 ),
                 decoration: BoxDecoration(

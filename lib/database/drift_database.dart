@@ -17,22 +17,29 @@ class LocalDatabase extends _$LocalDatabase {
   @override
   int get schemaVersion => 1;
 
-  // insert
+  // INSERT
   Future<int> createDate(DateCompanion data) => into(date).insert(data);
 
-  // select used to Future
+  // SELECT used to Future
   Future<List<DateData>> getDates() => select(date).get();
 
   Future<DateData> getDate(int id) async {
-    return await (select(date)..where((table) => table.id.equals(id))).getSingle();
+    return await (select(date)..where((table) => table.id.equals(id)))
+        .getSingle();
   }
 
-  // select used to Stream
+  // SELECT used to Stream
   Stream<List<DateData>> watchDates() {
     return select(date).watch();
   }
 
-  // delete
+  // EDIT
+  Future<int> updateDate(int id, DateCompanion data) async {
+    return await (update(date)..where((table) => table.id.equals(id)))
+        .write(data);
+  }
+
+  // DELETE
   Future<int> deleteDate(int id) =>
       (delete(date)..where((table) => table.id.equals(id))).go();
 }

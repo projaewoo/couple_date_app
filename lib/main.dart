@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 void main() {
   final database = LocalDatabase();   // database 호출
   GetIt.I.registerSingleton<LocalDatabase>(database);   // 어디서든 GetIt 클래스를 사용하여 database 가져올 수 있음.
-  debugPaintSizeEnabled = true;   // simulator에 위젯 표시
+  // debugPaintSizeEnabled = true;   // simulator에 위젯 표시
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => DateModel()),

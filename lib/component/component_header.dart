@@ -1,4 +1,4 @@
-import 'package:couple_date_app/component/font.dart';
+import 'package:couple_date_app/const/font.dart';
 import 'package:couple_date_app/screen/date_setting_screen.dart';
 import 'package:flutter/material.dart';
 
